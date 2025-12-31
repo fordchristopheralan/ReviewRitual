@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-paper text-text-primary font-body;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus visible styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-focus-orange ring-offset-2;
+  }
+  
+  /* Selection color */
+  ::selection {
+    @apply bg-focus-orange/20;
+  }
+}
+
+@layer components {
+  /* Card styles */
+  .card {
+    @apply rounded-xl border-2 border-warm-gray bg-white p-6;
+  }
+  
+  .card-dark {
+    @apply rounded-xl bg-coach-charcoal p-6 text-white;
+  }
+  
+  /* Section header */
+  .section-header {
+    @apply mb-6 border-b-2 border-coach-charcoal pb-4;
+  }
+  
+  .section-number {
+    @apply font-display text-xs uppercase tracking-widest text-focus-orange;
+  }
+  
+  .section-title {
+    @apply font-display text-2xl font-bold text-coach-charcoal;
+  }
+  
+  /* Form group */
+  .form-group {
+    @apply space-y-2;
+  }
+  
+  .form-label {
+    @apply font-display text-xs uppercase tracking-wide text-text-secondary;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Animate in on view */
+  .animate-in {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+}
