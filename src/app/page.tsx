@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Clock, Settings, History, TrendingUp } from 'lucide-react';
+import { Clock, Settings, History, TrendingUp, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { StreakDisplay } from '@/components/dashboard/StreakDisplay';
 import { HeatmapCalendar } from '@/components/dashboard/HeatmapCalendar';
+import { createClient } from '@/lib/supabase/client';
 
 // Mock data - will come from Supabase
 const MOCK_STREAK = {
@@ -31,6 +32,13 @@ const MOCK_WEEK_TO_REVIEW: Record<string, string> = {
 export default function DashboardPage() {
   const router = useRouter();
   const isStreakAtRisk = REVIEW_STATUS !== 'complete' && HOURS_UNTIL_WEEK_ENDS < 24;
+  
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  };
   
   const getCtaText = () => {
     switch (REVIEW_STATUS) {
@@ -89,6 +97,13 @@ export default function DashboardPage() {
             <Link href="/settings" className="text-medium-gray hover:text-white transition-colors" title="Settings">
               <Settings className="h-5 w-5" />
             </Link>
+            <button 
+              onClick={handleLogout}
+              className="text-medium-gray hover:text-white transition-colors" 
+              title="Sign Out"
+            >
+              <LogOut className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </header>
